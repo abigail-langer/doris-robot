@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<robot name="dorisv02">
+  <link name="base">
+    <inertial>
+      <origin xyz="-0.044877 0.096163 0.034971" rpy="0 0 0"/>
+      <mass value="1.076152"/>
+      <inertia ixx="0.005311" ixy="1.3099331e-05" ixz="-4.827551e-06" iyy="0.003419" iyz="8.986118e-06" izz="0.007446"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="robot_base02.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="robot_base02.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="thighF">
+    <inertial>
+      <origin xyz="0.015325 -0.012047 0.01007" rpy="0 0 0"/>
+      <mass value="0.018797"/>
+      <inertia ixx="0.005517222" ixy="1.18629e-07" ixz="-3.901e-09" iyy="0.008937362" iyz="1.6401e-08" izz="0.013840951"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="thighF.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="thighF.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Revolute joint connecting the thigh to the base -->
+  <joint name="thigh_joint" type="revolute">
+    <parent link="base"/>
+    <child link="thigh"/>
+    <!-- The joint origin is set using the thigh's World X,Y,Z values (converted to meters):
+         30.40 mm, 0.006 mm, 20.005 mm → 0.0304, 0.000006, 0.020005 -->
+    <origin xyz="0.0304 0.000006 0.020005" rpy="0 0 0"/>
+    <!-- The axis of rotation is defined; adjust if a different axis is needed -->
+    <axis xyz="0 0 1"/>
+    <!-- Example joint limits (radians, effort in N·m, and velocity in rad/s) -->
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+  </joint>
+</robot>
